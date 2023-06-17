@@ -24,7 +24,8 @@ import time
 
 import pyarrow
 import pyarrow.flight
-
+import pandas as pd
+import pyarrow.csv as csv
 
 class FlightServer(pyarrow.flight.FlightServerBase):
     def __init__(self, host="localhost", location=None,
@@ -33,7 +34,11 @@ class FlightServer(pyarrow.flight.FlightServerBase):
         super(FlightServer, self).__init__(
             location, auth_handler, tls_certificates, verify_client,
             root_certificates)
-        self.flights = { }
+
+        self.orders = pd.read_csv("../../../../data/orders1000.csv")
+        desc = pyarrow.flight.FlightDescriptor.for_path("orders")
+        self.orderKey = self.descriptor_to_key(desc)
+        self.flights = { self.orderKey : csv.read_csv("../../../../data/orders1000.csv") }
         self.host = host
         self.tls_certificates = tls_certificates
 
@@ -73,11 +78,13 @@ class FlightServer(pyarrow.flight.FlightServerBase):
             yield self._make_flight_info(key, descriptor, table)
 
     def get_flight_info(self, context, descriptor):
+
         key = FlightServer.descriptor_to_key(descriptor)
+        print(key)
         if key in self.flights:
             table = self.flights[key]
             return self._make_flight_info(key, descriptor, table)
-        raise KeyError('Flight not found.')
+        raise KeyError('Flight not found BOOO.')
 
     def do_put(self, context, descriptor, reader, writer):
         key = FlightServer.descriptor_to_key(descriptor)
@@ -87,9 +94,13 @@ class FlightServer(pyarrow.flight.FlightServerBase):
 
     def do_get(self, context, ticket):
         key = ast.literal_eval(ticket.ticket.decode())
-        if key not in self.flights:
+        if key == self.orderKey:
+            table = pyarrow.Table.from_pandas(self.orders)
+            return pyarrow.flight.RecordBatchStream(table)
+        #elif key not in self.flights:
+        else:
             return None
-        return pyarrow.flight.RecordBatchStream(self.flights[key])
+        #return pyarrow.flight.RecordBatchStream(self.flights[key])
 
     def list_actions(self, context):
         return [

@@ -24,6 +24,7 @@ import pyarrow
 import pyarrow.flight
 import pyarrow.csv as csv
 import numpy as np
+import time
 
 
 def list_flights(args, client, connection_args={}):
@@ -194,14 +195,14 @@ def get_orders():
     client = pyarrow.flight.FlightClient(f"{scheme}://{host}:{port}",
                                          **connection_args)
 
-    num_rows = 1000
-    data_table = csv.read_csv("../../../../data/orders" + str(num_rows) + ".csv")
+    #um_rows = 1000
+    #data_table = csv.read_csv("../../../../data/orders" + str(num_rows) + ".csv")
 
     descriptor = pyarrow.flight.FlightDescriptor.for_path("orders")
 
-    writer, _ = client.do_put(descriptor, data_table.schema)
-    writer.write_table(data_table)
-    writer.close()
+    #writer, _ = client.do_put(descriptor, data_table.schema)
+    #writer.write_table(data_table)
+    #writer.close()
 
     info = client.get_flight_info(descriptor)
     for endpoint in info.endpoints:
@@ -210,8 +211,13 @@ def get_orders():
             print(location)
             get_client = pyarrow.flight.FlightClient(location,
                                                      **connection_args)
-            reader = get_client.do_get(endpoint.ticket)
-            df = reader.read_pandas()
+            df = []
+            for i in range(0,20):
+                start = time.time()
+                reader = get_client.do_get(endpoint.ticket)
+                df = reader.read_pandas()
+                end = time.time()
+                print(end - start)
             print(df)
 
 

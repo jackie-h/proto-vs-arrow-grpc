@@ -194,25 +194,8 @@ def get_orders():
     client = pyarrow.flight.FlightClient(f"{scheme}://{host}:{port}",
                                          **connection_args)
 
-    np.random.seed(12)
-    qty = np.random.randint(low=1, high=100, size=10)
-    #vals = np.random.randn(1000, 100)
-
-    cols = []
-    vals = []
-    for i in range(0,100):
-        cols.append("col" + str(i))
-        vals.append(np.random.normal(0.0, 1.0, size=1000))
-
-#    data_table = pyarrow.table(
-#        [["IBM", "GS", "APPL", "IBM", "GS", "APPL", "IBM", "GS", "APPL", "IBM"], qty],
-#        names=["Stock", "Qty"]
-#    )
-
-    data_table = pyarrow.table(
-        vals,
-        names=cols
-    )
+    num_rows = 1000
+    data_table = csv.read_csv("../../../../data/orders" + str(num_rows) + ".csv")
 
     descriptor = pyarrow.flight.FlightDescriptor.for_path("orders")
 

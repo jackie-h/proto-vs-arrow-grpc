@@ -7,13 +7,20 @@ import logging
 import grpc
 import orders_pb2
 import orders_pb2_grpc
+import time
 
 
 def get_orders(stub:orders_pb2_grpc.OrdersStub):
     request = orders_pb2.OrderRequest()
-    response = stub.GetOrders(request)
-    for order in response.orders:
-        print(order)
+    for i in range(0, 20):
+        start = time.time()
+        response = stub.GetOrders(request)
+        end = time.time()
+        print(end - start)
+
+    print(len(response.orders))
+    #for order in response.orders:
+    #    print(order)
 
 
 def run():

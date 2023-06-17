@@ -16,10 +16,10 @@ def create_data(num_rows):
     np.random.seed(12)
 
     for i in range(0, 100):
-        cols.append("col" + str(i))
+        cols.append("col" + str(i+1))
         if i == 0:
             vals.append(np.random.randint(low=1000000, high=2000000, size=num_rows))
-        elif i <= 10:
+        elif i < 10:
             word1 = random_word(14)
             word2 = random_word(14)
             word3 = random_word(8)

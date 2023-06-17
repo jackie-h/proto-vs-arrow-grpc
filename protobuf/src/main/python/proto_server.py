@@ -26,6 +26,15 @@ class OrdersServicer(orders_pb2_grpc.OrdersServicer):
             response.orders.append(order)
         return response
 
+    def GetOrdersStream(self, request, context):
+        columns = self.orders
+        for tup in self.orders.itertuples():
+            order = orders_pb2.Order()
+            for c in columns:
+                setattr(order, c, getattr(tup,c))
+            yield order
+
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

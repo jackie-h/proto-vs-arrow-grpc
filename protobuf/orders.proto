@@ -115,4 +115,5 @@ message OrderResponse
 service Orders {
 
   rpc GetOrders(OrderRequest) returns (OrderResponse) {}
+  rpc GetOrdersStream(OrderRequest) returns (stream Order) {}
 }

@@ -21,6 +21,17 @@ def get_orders(stub:orders_pb2_grpc.OrdersStub):
     print(len(response.orders))
     #for order in response.orders:
     #    print(order)
+    request = orders_pb2.OrderRequest()
+    for i in range(0, 20):
+        start = time.time()
+        orders = stub.GetOrdersStream(request)
+        i = 0
+        for o in orders:
+            i = i + 1
+        end = time.time()
+        print(end - start)
+
+    print(i)
 
 
 def run():

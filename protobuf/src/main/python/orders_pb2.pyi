@@ -27,7 +27,7 @@ class Order(_message.Message):
     COL7_FIELD_NUMBER: _ClassVar[int]
     COL8_FIELD_NUMBER: _ClassVar[int]
     COL9_FIELD_NUMBER: _ClassVar[int]
-    col1: float
+    col1: int
     col10: float
     col11: float
     col12: float
@@ -38,16 +38,16 @@ class Order(_message.Message):
     col17: float
     col18: float
     col19: float
-    col2: float
+    col2: str
     col20: float
-    col3: float
-    col4: float
-    col5: float
-    col6: float
-    col7: float
-    col8: float
-    col9: float
-    def __init__(self, col1: _Optional[float] = ..., col2: _Optional[float] = ..., col3: _Optional[float] = ..., col4: _Optional[float] = ..., col5: _Optional[float] = ..., col6: _Optional[float] = ..., col7: _Optional[float] = ..., col8: _Optional[float] = ..., col9: _Optional[float] = ..., col10: _Optional[float] = ..., col11: _Optional[float] = ..., col12: _Optional[float] = ..., col13: _Optional[float] = ..., col14: _Optional[float] = ..., col15: _Optional[float] = ..., col16: _Optional[float] = ..., col17: _Optional[float] = ..., col18: _Optional[float] = ..., col19: _Optional[float] = ..., col20: _Optional[float] = ...) -> None: ...
+    col3: str
+    col4: str
+    col5: str
+    col6: str
+    col7: str
+    col8: str
+    col9: str
+    def __init__(self, col1: _Optional[int] = ..., col2: _Optional[str] = ..., col3: _Optional[str] = ..., col4: _Optional[str] = ..., col5: _Optional[str] = ..., col6: _Optional[str] = ..., col7: _Optional[str] = ..., col8: _Optional[str] = ..., col9: _Optional[str] = ..., col10: _Optional[float] = ..., col11: _Optional[float] = ..., col12: _Optional[float] = ..., col13: _Optional[float] = ..., col14: _Optional[float] = ..., col15: _Optional[float] = ..., col16: _Optional[float] = ..., col17: _Optional[float] = ..., col18: _Optional[float] = ..., col19: _Optional[float] = ..., col20: _Optional[float] = ...) -> None: ...
 
 class OrderRequest(_message.Message):
     __slots__ = []

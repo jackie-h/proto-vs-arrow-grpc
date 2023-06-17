@@ -31,7 +31,7 @@ class OrdersServicer(orders_pb2_grpc.OrdersServicer):
     def GetOrders(self, request, context):
         response = orders_pb2.OrderResponse()
         for i in range(0,100):
-            response.orders.append(orders_pb2.Order(col1=1.0))
+            response.orders.append(orders_pb2.Order(col1=100000, col2="hello"))
 
         return response
 

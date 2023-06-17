@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+message Order {
+  float col1 = 1;
+  float col2 = 2;
+  float col3 = 3;
+  float col4 = 4;
+  float col5 = 5;
+  float col6 = 6;
+  float col7 = 7;
+  float col8 = 8;
+  float col9 = 9;
+  float col10 = 10;
+  float col11 = 11;
+  float col12 = 12;
+  float col13 = 13;
+  float col14 = 14;
+  float col15 = 15;
+  float col16 = 16;
+  float col17 = 17;
+  float col18 = 18;
+  float col19 = 19;
+  float col20 = 20;
+}
+
+message OrderRequest
+{
+}
+
+message OrderResponse
+{
+  repeated Order orders = 1;
+}
+
+service Orders {
+
+  rpc GetOrders(OrderRequest) returns (OrderResponse) {}
+}

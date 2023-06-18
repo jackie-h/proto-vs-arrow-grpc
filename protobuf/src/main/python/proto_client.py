@@ -22,8 +22,7 @@ def get_orders(stub:orders_pb2_grpc.OrdersStub):
         print(end - start)
 
     print(len(response.orders))
-    #for order in response.orders:
-    #    print(order)
+
     request = orders_pb2.OrderRequest()
     print("-------------- GetOrdersStream --------------")
     for i in range(0, 20):
@@ -34,7 +33,6 @@ def get_orders(stub:orders_pb2_grpc.OrdersStub):
             i = i + 1
         end = time.time()
         print(end - start)
-
     print(i)
 
 def get_tables(stub:table_pb2_grpc.TablesStub):
@@ -46,6 +44,7 @@ def get_tables(stub:table_pb2_grpc.TablesStub):
         response = stub.GetRowTable(request)
         end = time.time()
         print(end - start)
+    print(len(response.rows))
 
     print("-------------- GetColumnTable --------------")
     for i in range(0, 20):
@@ -53,6 +52,7 @@ def get_tables(stub:table_pb2_grpc.TablesStub):
         response = stub.GetColumnTable(request)
         end = time.time()
         print(end - start)
+    print(len(response.cols[0].intColumn.values))
 
 
 def run():
@@ -66,7 +66,6 @@ def run():
         stub = table_pb2_grpc.TablesStub(channel)
         print("-------------- GetTables --------------")
         get_tables(stub)
-
 
 
 if __name__ == '__main__':

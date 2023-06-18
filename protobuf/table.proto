@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+message Row
+{
+  repeated Cell values = 1;
+}
+
+message Cell
+{
+  oneof value {
+     float floatVal = 1;
+     int64 intVal = 2;
+     string stringVal = 3;
+  }
+}
+
+message RowBasedTable
+{
+  repeated string columnNames = 1;
+  repeated Row rows = 2;
+}
+
+message Column
+{
+   string name = 1;
+   oneof values {
+     FloatColumn floatColumn = 2;
+     IntColumn intColumn = 3;
+     StringColumn stringColumn = 4;
+  }
+}
+
+message IntColumn
+{
+   repeated int64 values = 1;
+}
+
+message StringColumn
+{
+   repeated string values = 1;
+}
+
+message FloatColumn
+{
+   repeated float values = 1;
+}
+
+message ColumnBasedTable
+{
+   repeated Column cols = 1;
+}
+
+message TableRequest
+{
+  string name = 1;
+}
+
+service Tables {
+
+  rpc GetRowTable(TableRequest) returns (RowBasedTable) {}
+  rpc GetColumnTable(TableRequest) returns (ColumnBasedTable) {}
+}

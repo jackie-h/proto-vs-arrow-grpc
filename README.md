@@ -6,6 +6,7 @@ python -m grpc_tools.protoc -I protobuf/ --python_out=protobuf/src/main/python -
 
 
 Better proto seems to be considerably slower.
+https://github.com/danielgtaylor/python-betterproto/issues/153
 
 For better proto
 https://github.com/danielgtaylor/python-betterproto

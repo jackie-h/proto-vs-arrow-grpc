@@ -2,7 +2,7 @@ This project compares gRPC with protobufs against the Apache Arrow Flight gRPC p
 
 To generate the protobufs run:
 
-python -m grpc_tools.protoc -I protobuf/ --python_out=protobuf/src/main/python --pyi_out=protobuf/src/main/python --grpc_python_out=protobuf/src/main/python protobuf/orders.proto
+python -m grpc_tools.protoc -I protobuf/src/main/proto --python_out=protobuf/src/main/python --pyi_out=protobuf/src/main/python --grpc_python_out=protobuf/src/main/python protobuf/src/main/proto/*.proto
 
 
 Better proto seems to be considerably slower.
@@ -16,4 +16,4 @@ Must install the -pre version if want the ServerBase
 
 pip install --pre "betterproto[compiler]"
 
-python -m grpc_tools.protoc -I protobuf/ --python_betterproto_out=protobuf/src/main/python protobuf/orders.proto
+python -m grpc_tools.protoc -I protobuf/src/main/proto --python_betterproto_out=protobuf/src/main/python protobuf/src/main/proto/*.proto

@@ -1,4 +1,4 @@
-
+This project compares gRPC with protobufs against the Apache Arrow Flight gRPC protocol that internally uses flatbuffers 
 
 To generate the protobufs run:
 

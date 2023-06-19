@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option java_package = "test";
+
 message Order {
   int64 col1 = 1;
   string col2 = 2;
